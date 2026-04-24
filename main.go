@@ -123,6 +123,12 @@ func run(cfg *config.Config) error {
 		StatusEnabled:    cfg.Status.Enabled,
 		StatusText:       cfg.Status.Text,
 		StatusEmoji:      cfg.Status.Emoji,
+		OnStatusToggle: func(on bool) error {
+			if on {
+				return client.SetStatus(ctx, cfg.Status.Text, cfg.Status.Emoji)
+			}
+			return client.ClearStatus(ctx)
+		},
 	})
 
 	p := tea.NewProgram(model, tea.WithAltScreen())

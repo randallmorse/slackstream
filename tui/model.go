@@ -27,6 +27,7 @@ type ModelConfig struct {
 	StatusEnabled    bool
 	StatusText       string
 	StatusEmoji      string
+	OnStatusToggle   func(on bool) error
 }
 
 type Model struct {
@@ -128,8 +129,8 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Status):
 			if m.config.StatusEnabled {
 				m.statusOn = !m.statusOn
-				return m, func() tea.Msg {
-					return StatusToggledMsg{On: m.statusOn}
+				if m.config.OnStatusToggle != nil {
+					go m.config.OnStatusToggle(m.statusOn)
 				}
 			}
 		}
