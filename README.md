@@ -123,3 +123,92 @@ SlackStream is intentionally minimal. Any future features will continue to respe
 Welcome to SlackStream.
 
 **Stay focused. Stay aware. Open Slack only when it matters.**
+
+---
+
+## Quick Start
+
+### 1. Create a Slack App
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps)
+2. Click "Create New App" → "From scratch"
+3. Name it "SlackStream" and select your workspace
+
+### 2. Add OAuth Scopes
+
+Under "OAuth & Permissions", add these User Token Scopes:
+
+- `channels:history` — read channel messages
+- `channels:read` — list channels
+- `im:history` — read DM messages
+- `im:read` — list DM conversations
+- `users:read` — resolve usernames
+- `users.profile:write` — set status (optional)
+
+### 3. Install to Workspace
+
+Click "Install to Workspace" and authorize. Copy the **User OAuth Token** (`xoxp-...`).
+
+### 4. Configure SlackStream
+
+Create `~/.slackstream.yaml`:
+
+```yaml
+token: "xoxp-your-token-here"  # or set SLACK_TOKEN env var
+
+channels:
+  - "#engineering"
+  - "#incidents"
+  - "#general"
+
+dms: true
+
+settings:
+  poll_interval: 3s
+  max_message_length: 120
+  show_threads: true
+  show_bots: true
+
+sounds:
+  enabled: true
+  channels:
+    enabled: true
+    sound: "tick"
+  dms:
+    enabled: true
+    sound: "tah"
+  debounce: 3s
+
+status:
+  enabled: true
+  text: "Work Session In Progress - DM to Reach Me"
+  emoji: ":headphones:"
+```
+
+### 5. Run
+
+```bash
+./slackstream
+```
+
+Or with a custom config:
+
+```bash
+./slackstream -config /path/to/config.yaml
+```
+
+### Controls
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Switch between Channels and DMs |
+| `Space` | Pause/resume scrolling |
+| `↑/↓` or `j/k` | Scroll through history |
+| `s` | Toggle Slack status |
+| `q` | Quit |
+
+### Building from Source
+
+```bash
+go build -o slackstream .
+```
