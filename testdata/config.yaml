@@ -1,0 +1,28 @@
+token: "xoxp-test-token"
+
+channels:
+  - "#engineering"
+  - "#incidents"
+
+dms: true
+
+settings:
+  poll_interval: 3s
+  max_message_length: 120
+  show_threads: true
+  show_bots: true
+
+sounds:
+  enabled: true
+  channels:
+    enabled: true
+    sound: "tick"
+  dms:
+    enabled: true
+    sound: "tah"
+  debounce: 3s
+
+status:
+  enabled: true
+  text: "Work Session In Progress - DM to Reach Me"
+  emoji: ":headphones:"
