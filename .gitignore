@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+# Binary output
+slackstream
+
 # Test binary, built with `go test -c`
 *.test
 
